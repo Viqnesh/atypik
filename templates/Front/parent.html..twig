@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        {% for item in navigation %}
+        <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+        {% endfor %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,116 @@
+{# /templates/produit.html.twig #}
+{% extends 'parent.html.twig' %}
+
+{% block titre %}Back-Office{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block contenuPrincipal %}
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+  
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+        <!-- Messages Dropdown Menu -->
+        <li class="nav-item dropdown">
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <!-- Message Start -->
+  
+  
+        <li class="nav-item">
+          <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+            Se Déconnecter
+          </a>
+        </li>
+        <li class="nav-item">
+          </a>
+        </li>
+      </ul>
+  
+  
+  
+    </nav>
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">Modifier un Paramètre</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+  
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h4 class="card-title">{{ typehabitat.nom }}</h4>
+                </div>
+                {{ propriete.nom }}
+                {{ propriete.type }}
+                <div class="card-body">
+                  <div>
+                    <{{ form(form) }}>
+                      </form>
+                      
+       
+    
+          <!-- /.row -->
+          <!-- Main row -->
+          <div class="row">
+            <!-- Left col -->
+            <section class="col-lg-7 connectedSortable">
+              <!-- Custom tabs (Charts with tabs)-->
+            
+              <!-- /.card --
+  
+    <!-- /.navbar -->
+  
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a class="brand-link">
+        <span class="brand-text font-weight-light">Atypik House</span>
+      </a>
+  
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <li class="nav-header">Panneau d'Administration</li>
+        </div>
+  
+        <!-- SidebarSearch Form -->
+  
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+                 with font-awesome or any other icon font library -->
+  
+            <li class="nav-item">
+              <a href="habitat.html" class="nav-link">
+                
+                <p>
+                  Gérer les Habitats
+                </p>
+              </a>
+            </li>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}

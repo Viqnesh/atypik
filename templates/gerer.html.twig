@@ -1,0 +1,245 @@
+{# /templates/produit.html.twig #}
+{% extends 'parent.html.twig' %}
+
+{% block titre %}Back-Office{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block contenuPrincipal %}
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+  
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+        <!-- Messages Dropdown Menu -->
+        <li class="nav-item dropdown">
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <!-- Message Start -->
+  
+  
+        <li class="nav-item">
+          <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+            Se Déconnecter
+          </a>
+        </li>
+        <li class="nav-item">
+          </a>
+        </li>
+      </ul>
+  
+  
+  
+    </nav>
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">{{typehabitat.nom}}</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+  
+      <!-- Main content -->
+      <section class="col-lg-7 connectedSortable">
+        <!-- Custom tabs (Charts with tabs)-->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+            </h3>
+            <div class="card-tools">
+              <ul class="nav nav-pills ml-auto">
+                
+              </ul>
+            </div>
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col"><div class="dropdown">
+                    <a class="btn btn-light" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Id
+                    </a>
+                  
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="modifParamètre.html">Modifier</a>
+                      <a class="dropdown-item" href="#">Supprimer</a>
+                    </div>
+                   </div>
+                </th>
+                  <th scope="col"><div class="dropdown">
+                    <a class="btn btn-light" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Nom
+                    </a>
+                  
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="modifParamètre.html">Modifier</a>
+                      <a class="dropdown-item" href="#">Supprimer</a>
+                    </div>
+                   </div></a>
+                  </th>
+                  <th>
+                    
+                  </th>
+              </tr>
+              </thead>
+                  <th>
+                      {{ typehabitat.id }}
+
+                </th>
+                  <th>
+                      {{ typehabitat.nom }}
+                  </th>
+                 </tr>
+              </tbody>
+            </table>
+            
+            </div>
+          </section>
+      <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <div class="card card-primary">
+                  <div class="card-header">
+                    <h4 class="card-title">Voir les proprietés déjà ajoutés</h4>
+                  </div>
+                  <div class="card-body">
+                    <div>
+                      <table class="table">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col"><div class="dropdown">
+                              <a class="btn btn-light" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Id
+                              </a>
+                            
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="modifParamètre.html">Modifier</a>
+                                <a class="dropdown-item" href="#">Supprimer</a>
+                              </div>
+                             </div>
+                          </th>
+                            <th scope="col"><div class="dropdown">
+                              <a class="btn btn-light" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Nom
+                              </a>
+                            
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="modifParamètre.html">Modifier</a>
+                                <a class="dropdown-item" href="#">Supprimer</a>
+                              </div>
+                             </div></a>
+                            </th>
+                            <th scope="col"><div class="dropdown">
+                              <a class="btn btn-light" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Type
+                              </a>
+                            
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="modifParamètre.html">Modifier</a>
+                                <a class="dropdown-item" href="#">Supprimer</a>
+                              </div>
+                             </div></a>
+                            </th>
+                            <th scope="col"><div class="dropdown">
+                              <a class="btn btn-light" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Obligatoire
+                              </a>
+                            
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="modifParamètre.html">Modifier</a>
+                                <a class="dropdown-item" href="#">Supprimer</a>
+                              </div>
+                             </div></a>
+                            </th>
+                            <th>
+                              
+                            </th>
+                        </tr>
+                        </thead>
+                        {% for propriete in proprietes %}
+                          
+                       
+                            <th>
+                                {{ propriete.id }}
+          
+                          </th>
+                            <th>
+                                {{ propriete.nom }}
+                            </th>
+                          </th>
+                          <th>
+                              {{ propriete.type }}
+                          </th>
+                        </th>
+                        <th>
+                            {{ propriete.obligatoire }}
+                        </th>
+                        <th>
+                          <td><a href="{{ path('modifParam' , {'id' : propriete.id })}}" class="btn btn-default">Gérer</a></td>
+                      </th>
+                        
+                           </tr>
+                           {% endfor %}
+                        </tbody>
+                      </table>
+                      <h3>Aucune proprieté ajoutée.</h3>
+                      <a href="{{path('ajoutParam' , {'id' : typehabitat.id })}}" class="btn btn-primary">Ajouter un paramètre</a>
+
+  
+          <!-- /.row -->
+          <!-- Main row -->
+          <div class="row">
+            <!-- Left col -->
+            <section class="col-lg-7 connectedSortable">
+              <!-- Custom tabs (Charts with tabs)-->
+            
+              <!-- /.card --
+  
+    <!-- /.navbar -->
+  
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a class="brand-link">
+        <span class="brand-text font-weight-light">Atypik House</span>
+      </a>
+  
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <li class="nav-header">Panneau d'Administration</li>
+        </div>
+  
+        <!-- SidebarSearch Form -->
+  
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+                 with font-awesome or any other icon font library -->
+  
+            <li class="nav-item">
+              <a href="habitat.html" class="nav-link">
+                
+                <p>
+                  Gérer les Habitats
+                </p>
+              </a>
+            </li>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
