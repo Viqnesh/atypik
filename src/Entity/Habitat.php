@@ -64,6 +64,11 @@ class Habitat
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $datePublication;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -173,6 +178,18 @@ class Habitat
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getDatePublication(): ?\DateTimeInterface
+    {
+        return $this->datePublication;
+    }
+
+    public function setDatePublication(\DateTimeInterface $datePublication): self
+    {
+        $this->datePublication = $datePublication;
 
         return $this;
     }

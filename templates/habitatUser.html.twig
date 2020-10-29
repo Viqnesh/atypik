@@ -1,0 +1,25 @@
+
+{% extends 'internaute.html.twig' %}
+
+{% block titre %}Dashboard{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block contenuPrincipal %}
+
+<h2>Informations sur l'habitat<h2>
+<h3>Historique de Réservations</h3>
+<h3>Réservations en Attente</h3>
+<h3>Planning de Disponibilité</h3>
+
+<div id="calendar-holder"></div>
+
+{% endfor %}
+<h2>Activite à Proximité</h2>
+<h5>Ajouter une Activite</h5>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}

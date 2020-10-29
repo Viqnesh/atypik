@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PaiementController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+    {{ customer }}
+    <a href="https://www.sandbox.paypal.com/connect?flowEntry=static&client_id=AUR_CjZxxsfM5lJ0dJT00qRPhiWVXrw4wNyShsUCveJcmMNDBjGTfIy_ZplU-i-xLl-YGKwzXSe0iYti&scope=none&redirect_uri={{path('internaute')}}
+    "><img src="https://www.paypalobjects.com/webstatic/en_US/developer/docs/login/connectwithpaypalbutton.png"></a>
+</div>
+{% endblock %}

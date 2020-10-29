@@ -16,7 +16,7 @@ class TypeHabitat
      * @ORM\Column(type="integer")
      */
     private $id;
-
+    
     /**
      * @ORM\Column(type="string", length=30)
      */
