@@ -2,23 +2,29 @@
 
 namespace App\Entity;
 
-use App\Repository\TypeHabitatRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=TypeHabitatRepository::class)
+ * TypeHabitat
+ *
+ * @ORM\Table(name="type_habitat")
+ * @ORM\Entity
  */
 class TypeHabitat
 {
     /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-    
+
     /**
-     * @ORM\Column(type="string", length=30)
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=30, nullable=false)
      */
     private $nom;
 
@@ -38,8 +44,6 @@ class TypeHabitat
 
         return $this;
     }
-    public function __toString()
-    {
-        return $this->nom;
-    }
+
+
 }

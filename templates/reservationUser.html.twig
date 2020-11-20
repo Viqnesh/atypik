@@ -42,8 +42,8 @@
 
   {% for location in locations %}
 <li>{{ location.id}}</li>
-<li>{{ location.idReservation}}</li>
-<li>{{ location.dateReservation}}</li>
+<li>{{ location.idHabitat.nom}}</li>
+<li>{{ location.dateReservation|date('Y-m-d')}}</li>
 {% endfor %}
 {% endblock %}
 
