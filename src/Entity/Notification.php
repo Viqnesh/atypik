@@ -35,6 +35,7 @@ class Notification
      */
     private $statut;
 
+<<<<<<< HEAD
     /**
      * @var \User
      *
@@ -57,6 +58,8 @@ class Notification
         return $this;
     }
 
+=======
+>>>>>>> parent of 09ac319... Commit 3
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +88,9 @@ class Notification
 
         return $this;
     }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> parent of 09ac319... Commit 3
 }
