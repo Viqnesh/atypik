@@ -28,14 +28,11 @@ class Notification
      */
     private $idUser;
 
-<<<<<<< HEAD
     /**
      * @ORM\Column(type="string", length=45)
      */
     private $title;
 
-=======
->>>>>>> parent of 09ac319... Commit 3
     public function getId(): ?int
     {
         return $this->id;
@@ -63,13 +60,13 @@ class Notification
 
         return $this;
     }
-<<<<<<< HEAD
 
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 >>>>>>> parent of 09ac319... Commit 3
@@ -81,4 +78,6 @@ class Notification
         return $this;
     }
 >>>>>>> parent of 8e46fcd... Ajout fonctionnalités
+=======
+>>>>>>> parent of cf3d8b2... BackUp
 }
