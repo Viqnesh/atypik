@@ -2,99 +2,103 @@
 
 namespace App\Controller;
 
-use App\Entity\Propriete;
-use App\Entity\Notification;
-
-use App\Form\Propriete1Type;
-use App\Repository\ProprieteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\ProprieteType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Propriete;
 
-/**
- * @Route("/propriete")
- */
+
 class ProprieteController extends AbstractController
 {
     /**
-     * @Route("/", name="propriete_index", methods={"GET"})
+     * @Route("/modifParam/{id}", name="modifParam")
      */
-    public function index(ProprieteRepository $proprieteRepository): Response
+    public function modifParam($id, Request $request)
     {
-        return $this->render('propriete/index.html.twig', [
-            'proprietes' => $proprieteRepository->findAll(),
-        ]);
+                
+        $propriete= $this->getDoctrine()
+        ->getRepository(Propriete::class)
+        ->find($id);
+
+        $form = $this->createForm(ProprieteType::class, $propriete);
+    
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $propriete = $form->getData();    
+            // ... perform some action, such as saving the task to the database
+            // for example, if Task is a Doctrine entity, save it!
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+    
+            return $this->redirectToRoute('gerant');
+        }
+    
+        return $this->render('modifParam.html.twig' , [ 'propriete' => $propriete , 'form' => $form->createView(), ]);
     }
 
-    /**
-     * @Route("/new", name="propriete_new", methods={"GET","POST"})
+        /**
+     * @Route("/supprParam/{id}", name="supprParam")
      */
-    public function new(Request $request): Response
+    public function supprParam($id, Request $request)
     {
-        $propriete = new Propriete();
-        $notification = new Notification();
-        $notification->setTitle("Ajout d'un paramètre");
-        $form = $this->createForm(Propriete1Type::class, $propriete);
-        $form->handleRequest($request);
+        $propriete= $this->getDoctrine()
+        ->getRepository(Propriete::class)
+        ->find($id);
+        $entityManager = $this->getDoctrine()->getManager();
 
+        $entityManager->remove($propriete);
+        $entityManager->flush();
+    
+            return $this->redirectToRoute('gerant');
+    }
+
+        /**
+     * @Route("/ajoutParam/{id}", name="ajoutParam")
+     */
+    public function ajouterUnParamètre($id, Request $request)
+    {
+        {
+            $typehabitat= $this->getDoctrine()
+            ->getRepository(TypeHabitat::class)
+            ->find($id);
+    
+        if (!$typehabitat) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+            );
+        }
+        $propriete = new Propriete();
+
+        $form = $this->createForm(ProprieteType::class, $propriete);
+    
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $propriete = $form->getData();
+            $propriete->setIdTypeHabitat($typehabitat);
+    
+            // ... perform some action, such as saving the task to the database
+            // for example, if Task is a Doctrine entity, save it!
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($propriete);
-            $notification->setContenu("Un nouveau paramètre vient d'être ajouté pour les".$propriete->getIdTypeHabitat() );
-            $notification->setTypeHabitat($propriete->getIdTypeHabitat());
-            $entityManager->persist($notification);
             $entityManager->flush();
-            return $this->redirectToRoute('propriete_index');
+
+
+            return $this->redirectToRoute('gerant');
         }
-
-        return $this->render('propriete/new.html.twig', [
-            'propriete' => $propriete,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="propriete_show", methods={"GET"})
-     */
-    public function show(Propriete $propriete): Response
-    {
-        return $this->render('propriete/show.html.twig', [
-            'propriete' => $propriete,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/edit", name="propriete_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, Propriete $propriete): Response
-    {
-        $form = $this->createForm(Propriete1Type::class, $propriete);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('propriete_index');
+        
+            return $this->render('ajouter.html.twig' , ['typehabitat' => $typehabitat , 'form' => $form->createView(),]);
         }
-
-        return $this->render('propriete/edit.html.twig', [
-            'propriete' => $propriete,
-            'form' => $form->createView(),
-        ]);
+        
     }
 
-    /**
-     * @Route("/{id}", name="propriete_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Propriete $propriete): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$propriete->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($propriete);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('propriete_index');
-    }
 }

@@ -2,61 +2,37 @@
 
 namespace App\Entity;
 
+use App\Repository\NotificationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Notification
- *
- * @ORM\Table(name="notification", indexes={@ORM\Index(name="IDX_BF5476CA79F37AE5", columns={"id_user_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=NotificationRepository::class)
  */
 class Notification
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="contenu", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $contenu;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="statut", type="string", length=25, nullable=false)
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $statut;
+    private $idUser;
 
 <<<<<<< HEAD
     /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_user_id", referencedColumnName="id")
-     * })
+     * @ORM\Column(type="string", length=45)
      */
-    private $idTypeHabitat;
-
-    public function getIdTypeHabitat(): ?TypeHabitat
-    {
-        return $this->idTypeHabitat;
-    }
-
-    public function setIdTypeHabitat(?TypeHabitat $idTypeHabitat): self
-    {
-        $this->idTypeHabitat = $idTypeHabitat;
-
-        return $this;
-    }
+    private $title;
 
 =======
 >>>>>>> parent of 09ac319... Commit 3
@@ -73,24 +49,36 @@ class Notification
     public function setContenu(string $contenu): self
     {
         $this->contenu = $contenu;
-
         return $this;
     }
 
-    public function getStatut(): ?string
+    public function getIdUser(): ?User
     {
-        return $this->statut;
+        return $this->idUser;
     }
 
-    public function setStatut(string $statut): self
+    public function setIdUser(?User $idUser): self
     {
-        $this->statut = $statut;
+        $this->idUser = $idUser;
 
         return $this;
     }
 <<<<<<< HEAD
 
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
 
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 09ac319... Commit 3
+=======
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+>>>>>>> parent of 8e46fcd... Ajout fonctionnalités
 }

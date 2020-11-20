@@ -5,7 +5,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -42,7 +41,7 @@ class StripeController extends AbstractController
         ]);
     }
         /**
-     * @Route("/create-checkout", name="create-checkout")
+     * @Route("/create-checkout", name="checkout")
      */
     public function checkout(Response $response)
     {
@@ -67,7 +66,7 @@ class StripeController extends AbstractController
 ]);
 
 $response->setContent(json_encode([
-    'id' => $checkout_session
+    'id' => $checkout_session,
 ]));
 $response->headers->set('Content-Type', 'application/json');
 return $response ;

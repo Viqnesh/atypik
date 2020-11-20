@@ -29,6 +29,7 @@ class ReservationController extends AbstractController
         {
         
         $habitat = new Habitat();
+        $idProprietaire = 1 ;
         $form = $this->createForm(HabitatType::class, $habitat);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

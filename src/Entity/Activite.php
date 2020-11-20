@@ -2,31 +2,40 @@
 
 namespace App\Entity;
 
+use App\Repository\ActiviteRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Activite
- *
- * @ORM\Table(name="activite")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=ActiviteRepository::class)
  */
 class Activite
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=30, nullable=false)
+     * @ORM\Column(type="string", length=30)
      */
     private $nom;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
 }

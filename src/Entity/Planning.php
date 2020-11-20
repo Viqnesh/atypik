@@ -2,55 +2,46 @@
 
 namespace App\Entity;
 
+use App\Repository\PlanningRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Planning
- *
- * @ORM\Table(name="planning", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_D499BFF6A74ADF1", columns={"id_habitat_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=PlanningRepository::class)
  */
 class Planning
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="jour", type="integer", nullable=false)
+     * @ORM\Column(type="integer")
      */
     private $jour;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="mois", type="integer", nullable=false)
+     * @ORM\Column(type="integer")
      */
     private $mois;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="annee", type="integer", nullable=false)
+     * @ORM\Column(type="integer")
      */
     private $annee;
 
     /**
-     * @var \Habitat
-     *
-     * @ORM\ManyToOne(targetEntity="Habitat")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_habitat_id", referencedColumnName="id")
-     * })
+     * @ORM\OneToOne(targetEntity=Habitat::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $idHabitat;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $etat;
 
     public function getId(): ?int
     {
@@ -98,12 +89,23 @@ class Planning
         return $this->idHabitat;
     }
 
-    public function setIdHabitat(?Habitat $idHabitat): self
+    public function setIdHabitat(Habitat $idHabitat): self
     {
         $this->idHabitat = $idHabitat;
 
         return $this;
     }
 
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(string $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
 
 }

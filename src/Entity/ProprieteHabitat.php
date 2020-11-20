@@ -2,49 +2,35 @@
 
 namespace App\Entity;
 
+use App\Repository\ProprieteHabitatRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ProprieteHabitat
- *
- * @ORM\Table(name="propriete_habitat", indexes={@ORM\Index(name="IDX_849F5456A74ADF1", columns={"id_habitat_id"}), @ORM\Index(name="IDX_849F54563B9719DD", columns={"id_propriete_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=ProprieteHabitatRepository::class)
  */
 class ProprieteHabitat
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="valeur_propriete", type="string", length=30, nullable=false)
+     * @ORM\Column(type="string", length=30)
      */
     private $valeurPropriete;
 
     /**
-     * @var \Propriete
-     *
-     * @ORM\ManyToOne(targetEntity="Propriete")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_propriete_id", referencedColumnName="id")
-     * })
+     * @ORM\ManyToOne(targetEntity=Propriete::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $idPropriete;
 
     /**
-     * @var \Habitat
-     *
-     * @ORM\ManyToOne(targetEntity="Habitat")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_habitat_id", referencedColumnName="id")
-     * })
+     * @ORM\ManyToOne(targetEntity=Habitat::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $idHabitat;
 
@@ -88,6 +74,4 @@ class ProprieteHabitat
 
         return $this;
     }
-
-
 }

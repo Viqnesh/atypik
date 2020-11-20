@@ -2,49 +2,35 @@
 
 namespace App\Entity;
 
+use App\Repository\PriseDeVueRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * PriseDeVue
- *
- * @ORM\Table(name="prise_de_vue", indexes={@ORM\Index(name="IDX_3EAEED81B5E42F98", columns={"id_activite_habitat_id"}), @ORM\Index(name="IDX_3EAEED81A74ADF1", columns={"id_habitat_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=PriseDeVueRepository::class)
  */
 class PriseDeVue
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="url", type="string", length=25, nullable=false)
+     * @ORM\Column(type="string", length=25)
      */
     private $url;
 
     /**
-     * @var \Habitat
-     *
-     * @ORM\ManyToOne(targetEntity="Habitat")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_habitat_id", referencedColumnName="id")
-     * })
+     * @ORM\ManyToOne(targetEntity=Habitat::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $idHabitat;
 
     /**
-     * @var \ActiviteHabitat
-     *
-     * @ORM\ManyToOne(targetEntity="ActiviteHabitat")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_activite_habitat_id", referencedColumnName="id")
-     * })
+     * @ORM\ManyToOne(targetEntity=ActiviteHabitat::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $idActiviteHabitat;
 
@@ -88,6 +74,4 @@ class PriseDeVue
 
         return $this;
     }
-
-
 }

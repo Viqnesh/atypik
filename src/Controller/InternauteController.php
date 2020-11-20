@@ -6,10 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Habitat;
 use App\Entity\ActiviteHabitat;
-use App\Entity\User;
-use App\Entity\Location;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
@@ -29,38 +25,41 @@ class InternauteController extends AbstractController
 
 
     /**
-     * @Route("/historique/{id}", name="historique")
+     * @Route("/historique", name="historique")
      */
-    public function consulterHistorique()
+    public function consulterHistorique($idHabitat)
     {
         $repository = $this->getDoctrine()->getRepository(Location::class);
-        $historique = $repository->findBy(['statut' => 'En Attente' , 'idHabitat' => $id]
-        );
+
+        $historique = $repository->find($idHabitat);
+        $historique = $repository->findByStatut('Validé');
 
     if (!$historique) {
         throw $this->createNotFoundException(
-            'No product found for id '
+            'No product found for id '.$id
         );
     }
         return $this->render('historique.html.twig', [
-            'controller_name' => 'InternauteController', ['locations' => $historique]
+            'controller_name' => 'InternauteController',
         ]);
     }
     /**
      * @Route("/historiqueUser", name="historiqueUser")
      */
-    public function consulterHistoriqueUser()
+    public function consulterHistoriqueUser($idUser)
     {
-
         $repository = $this->getDoctrine()->getRepository(Location::class);
-        $user = $this->getDoctrine()->getRepository(User::class)->find($this->getUser()->getId());
-        $historique = $repository->findByIdUser($user);
+
+        $historique = $repository->find($idUser);
+        $historique = $repository->findByStatut('Validé');
 
     if (!$historique) {
-        throw $this->createNotFoundException('No product found for id ');
+        throw $this->createNotFoundException(
+            'No product found for id '.$idUser
+        );
     }
-        return $this->render('reservationUser.html.twig', [
-            'controller_name' => 'InternauteController', 'locations' => $historique  
+        return $this->render('historique.html.twig', [
+            'controller_name' => 'InternauteController',
         ]);
     }
 
