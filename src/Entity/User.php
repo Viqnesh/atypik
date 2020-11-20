@@ -2,62 +2,80 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
+ * User
+ *
+ * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_8D93D649AA08CB10", columns={"login"})})
+ * @ORM\Entity
  */
-class User implements UserInterface
+class User
 {
     /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @var string
+     *
+     * @ORM\Column(name="login", type="string", length=180, nullable=false)
      */
     private $login;
 
     /**
-     * @ORM\Column(type="json")
+     * @var json
+     *
+     * @ORM\Column(name="roles", type="json", nullable=false)
      */
-    private $roles = [];
+    private $roles;
 
     /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255, nullable=false)
      */
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=50, nullable=false)
      */
-    private $Nom;
+    private $nom;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @var string
+     *
+     * @ORM\Column(name="prenom", type="string", length=50, nullable=false)
      */
-    private $Prenom;
+    private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=150)
+     * @var string
+     *
+     * @ORM\Column(name="adresse", type="string", length=150, nullable=false)
      */
-    private $Adresse;
+    private $adresse;
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @var string
+     *
+     * @ORM\Column(name="ville", type="string", length=40, nullable=false)
      */
-    private $Ville;
+    private $ville;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="cp", type="integer", nullable=false)
      */
-    private $CP;
+    private $cp;
 
     public function getId(): ?int
     {
@@ -76,26 +94,9 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
+    public function getRoles(): ?array
     {
-        return (string) $this->login;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return $this->roles;
     }
 
     public function setRoles(array $roles): self
@@ -105,12 +106,9 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
-        return (string) $this->password;
+        return $this->password;
     }
 
     public function setPassword(string $password): self
@@ -120,80 +118,65 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getSalt()
-    {
-        // not needed when using the "bcrypt" algorithm in security.yaml
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials()
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
-    }
-
     public function getNom(): ?string
     {
-        return $this->Nom;
+        return $this->nom;
     }
 
-    public function setNom(string $Nom): self
+    public function setNom(string $nom): self
     {
-        $this->Nom = $Nom;
+        $this->nom = $nom;
 
         return $this;
     }
 
     public function getPrenom(): ?string
     {
-        return $this->Prenom;
+        return $this->prenom;
     }
 
-    public function setPrenom(string $Prenom): self
+    public function setPrenom(string $prenom): self
     {
-        $this->Prenom = $Prenom;
+        $this->prenom = $prenom;
 
         return $this;
     }
 
     public function getAdresse(): ?string
     {
-        return $this->Adresse;
+        return $this->adresse;
     }
 
-    public function setAdresse(string $Adresse): self
+    public function setAdresse(string $adresse): self
     {
-        $this->Adresse = $Adresse;
+        $this->adresse = $adresse;
 
         return $this;
     }
 
     public function getVille(): ?string
     {
-        return $this->Ville;
+        return $this->ville;
     }
 
-    public function setVille(string $Ville): self
+    public function setVille(string $ville): self
     {
-        $this->Ville = $Ville;
+        $this->ville = $ville;
 
         return $this;
     }
 
-    public function getCP(): ?int
+    public function getCp(): ?int
     {
-        return $this->CP;
+        return $this->cp;
     }
 
-    public function setCP(int $CP): self
+    public function setCp(int $cp): self
     {
-        $this->CP = $CP;
+        $this->cp = $cp;
 
         return $this;
     }
+
+
 }

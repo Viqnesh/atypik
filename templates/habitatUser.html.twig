@@ -8,17 +8,46 @@
 {% endblock %}
 
 {% block contenuPrincipal %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Atypik House</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Accueil<span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link" href="{{  path('internaute')}}">Voir les Habitats</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{{  path('internaute')}}">Activité de l'entreprise</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{{  path('internaute')}}">Dashboard</a>
+          </li>
+          <li class="nav-item ">
+            </a>
+          </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <a  class="nav-link" >Connecté en tant que : {{ app.user.prenom }}</a>
+        <a  class="nav-link" href="{{  path('valider')}}">Notifications</a>
+        <a  class="nav-link" href="{{  path('app_logout')}}">Se Déconnecter</a>
+      </form>
+    </div>
+  </nav>
+{% for habitat in habitats %}
+<li>{{ habitat.nom}}</li>
+<li>{{ habitat.nbCouchages}}</li>
+<li>{{ habitat.prix}}</li>
 
-<h2>Informations sur l'habitat<h2>
-<h3>Historique de Réservations</h3>
-<h3>Réservations en Attente</h3>
-<h3>Planning de Disponibilité</h3>
-
-<div id="calendar-holder"></div>
+<li><a href="{{ path('historique', {habitat:habitat.id}) }}">Réservations en Attente</a></li>
 
 {% endfor %}
-<h2>Activite à Proximité</h2>
-<h5>Ajouter une Activite</h5>
+
 {% endblock %}
 
 {% block javascripts %}

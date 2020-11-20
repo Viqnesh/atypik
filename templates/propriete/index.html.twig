@@ -1,20 +1,154 @@
+{# /templates/produit.html.twig #}
 {% extends 'parent.html.twig' %}
 
-{% block title %}Hello ProprieteController!{% endblock %}
+{% block titre %}Back-Office{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block contenuPrincipal %}
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+  
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+        <!-- Messages Dropdown Menu -->
+        <li class="nav-item dropdown">
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <!-- Message Start -->
+  
+  
+        <li class="nav-item">
+          <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+            Se Déconnecter
+          </a>
+        </li>
+        <li class="nav-item">
+          </a>
+        </li>
+      </ul>
+  
+  
+  
+    </nav>
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">Ajouter Une Propriete</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+  
+      <!-- Main content -->
+      <section class="col-lg-7 connectedSortable">
+        <!-- Custom tabs (Charts with tabs)-->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+            </h3>
+            <div class="card-tools">
+              <ul class="nav nav-pills ml-auto">
+                
+              </ul>
+            </div>
+            <h1>Propriete index</h1>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Type</th>
+                        <th>Obligatoire</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for propriete in proprietes %}
+                    <tr>
+                        <td>{{ propriete.id }}</td>
+                        <td>{{ propriete.nom }}</td>
+                        <td>{{ propriete.type }}</td>
+                        <td>{{ propriete.obligatoire ? 'Yes' : 'No' }}</td>
+                        <td>
+                            <a href="{{ path('propriete_show', {'id': propriete.id}) }}">show</a>
+                            <a href="{{ path('propriete_edit', {'id': propriete.id}) }}">edit</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        
+            <a href="{{ path('propriete_new') }}">Create new</a>
+
+  
+          <!-- /.row -->
+          <!-- Main row -->
+          <div class="row">
+            <!-- Left col -->
+            <section class="col-lg-7 connectedSortable">
+              <!-- Custom tabs (Charts with tabs)-->
+            
+              <!-- /.card --
+  
+    <!-- /.navbar -->
+  
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a class="brand-link">
+        <span class="brand-text font-weight-light">Atypik House</span>
+      </a>
+  
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <li class="nav-header">Panneau d'Administration</li>
+        </div>
+  
+        <!-- SidebarSearch Form -->
+  
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+                 with font-awesome or any other icon font library -->
+  
+            <li class="nav-item">
+              <a href="habitat.html" class="nav-link">
+                
+                <p>
+                  Gérer les Habitats
+                </p>
+              </a>
+            </li>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Propriete index{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/atypik/src/Controller/ProprieteController.php'|file_link(0) }}">src/Controller/ProprieteController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/atypik/templates/propriete/index.html.twig'|file_link(0) }}">templates/propriete/index.html.twig</a></code></li>
-    </ul>
-</div>
+    
 {% endblock %}

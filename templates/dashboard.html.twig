@@ -1,15 +1,35 @@
 
 {% extends 'internaute.html.twig' %}
 
+
+
 {% block titre %}Dashboard{% endblock %}
 
 {% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/datepicker.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/templatemo-style.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/slick/slick.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/slick/slick-theme.css') }}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/css/slick.css') }}">
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 {% endblock %}
 
 {% block contenuPrincipal %}
+
+{# read and display all flash messages #}
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="flash-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">Atypik House</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -20,12 +40,21 @@
           <a class="nav-link" href="#">Accueil<span class="sr-only"></span></a>
         </li>
         <li class="nav-item ">
-            <a class="nav-link" href="{{  path('valider')}}">Consulter les habitats disponibles</a>
+            <a class="nav-link" href="{{  path('valider')}}">Voir les Habitats</a>
           </li>
-
+          <li class="nav-item ">
+            <a class="nav-link" href="{{  path('valider')}}">Activité de l'entreprise</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{{  path('valider')}}">Dashboard</a>
+          </li>
+          <li class="nav-item ">
+            </a>
+          </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <a  class="nav-link" href="{{  path('historique')}}">Notifications</a>
+        <a  class="nav-link" >Connecté en tant que : {{ app.user.username }}</a>
+        <a  class="nav-link" href="{{  path('valider')}}">Notifications</a>
         <a  class="nav-link" href="{{  path('app_logout')}}">Se Déconnecter</a>
       </form>
     </div>
@@ -41,7 +70,7 @@
 
     <h2> Location</h2>
     <a href="{{  path('ajoutHabitat')}}">Ajouter un nouvel habitat</a><br>
-    <a href="{{  path('historique')}}">Gerer mes Habitats</a>
+    <a href="{{  path('gererHabitat')}}">Gerer mes Habitats</a>
 
 {% endblock %}
 

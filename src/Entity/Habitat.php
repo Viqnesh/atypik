@@ -2,72 +2,122 @@
 
 namespace App\Entity;
 
-use App\Repository\HabitatRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=HabitatRepository::class)
+ * Habitat
+ *
+ * @ORM\Table(name="habitat", indexes={@ORM\Index(name="IDX_3B37B2E876C50E4A", columns={"proprietaire_id"}), @ORM\Index(name="IDX_3B37B2E85BA3388B", columns={"id_type_habitat_id"})})
+ * @ORM\Entity
  */
 class Habitat
 {
     /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=30, nullable=false)
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=25)
+     * @var string
+     *
+     * @ORM\Column(name="nb_couchages", type="string", length=25, nullable=false)
      */
     private $nbCouchages;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="capacite", type="integer", nullable=false)
      */
     private $capacite;
 
     /**
-     * @ORM\Column(type="float")
+     * @var float
+     *
+     * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
      */
     private $prix;
 
     /**
-     * @ORM\ManyToOne(targetEntity=TypeHabitat::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @var string
+     *
+     * @ORM\Column(name="pays", type="string", length=30, nullable=false)
      */
-    private $idTypeHabitat;
+    private $pays;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @var string
+     *
+     * @ORM\Column(name="ville", type="string", length=40, nullable=false)
      */
-    private $proprietaire;
+    private $ville;
 
     /**
-     * @ORM\Column(type="string", length=30)
-     */
-    private $Pays;
-
-    /**
-     * @ORM\Column(type="string", length=40)
-     */
-    private $Ville;
-
-    /**
-     * @ORM\Column(type="text")
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", length=0, nullable=false)
      */
     private $description;
 
     /**
-     * @ORM\Column(type="date")
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_publication", type="date", nullable=false)
      */
     private $datePublication;
+
+    /**
+     * @var \TypeHabitat
+     *
+     * @ORM\ManyToOne(targetEntity="TypeHabitat")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_type_habitat_id", referencedColumnName="id")
+     * })
+     */
+    private $idTypeHabitat;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="proprietaire_id", referencedColumnName="id")
+     * })
+     */
+    private $proprietaire;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="ActiviteHabitat", mappedBy="habitat")
+     */
+    private $activiteHabitat;
+
+    /**
+     * @ORM\Column(type="string", length=70)
+     */
+    private $photo;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->activiteHabitat = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,50 +172,26 @@ class Habitat
         return $this;
     }
 
-    public function getIdTypeHabitat(): ?TypeHabitat
-    {
-        return $this->idTypeHabitat;
-    }
-
-    public function setIdTypeHabitat(?TypeHabitat $idTypeHabitat): self
-    {
-        $this->idTypeHabitat = $idTypeHabitat;
-
-        return $this;
-    }
-
-    public function getProprietaire(): ?User
-    {
-        return $this->proprietaire;
-    }
-
-    public function setProprietaire(?User $proprietaire): self
-    {
-        $this->proprietaire = $proprietaire;
-
-        return $this;
-    }
-
     public function getPays(): ?string
     {
-        return $this->Pays;
+        return $this->pays;
     }
 
-    public function setPays(string $Pays): self
+    public function setPays(string $pays): self
     {
-        $this->Pays = $Pays;
+        $this->pays = $pays;
 
         return $this;
     }
 
     public function getVille(): ?string
     {
-        return $this->Ville;
+        return $this->ville;
     }
 
-    public function setVille(string $Ville): self
+    public function setVille(string $ville): self
     {
-        $this->Ville = $Ville;
+        $this->ville = $ville;
 
         return $this;
     }
@@ -193,4 +219,69 @@ class Habitat
 
         return $this;
     }
+
+    public function getIdTypeHabitat(): ?TypeHabitat
+    {
+        return $this->idTypeHabitat;
+    }
+
+    public function setIdTypeHabitat(?TypeHabitat $idTypeHabitat): self
+    {
+        $this->idTypeHabitat = $idTypeHabitat;
+
+        return $this;
+    }
+
+    public function getProprietaire(): ?User
+    {
+        return $this->proprietaire;
+    }
+
+    public function setProprietaire(?User $proprietaire): self
+    {
+        $this->proprietaire = $proprietaire;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ActiviteHabitat[]
+     */
+    public function getActiviteHabitat(): Collection
+    {
+        return $this->activiteHabitat;
+    }
+
+    public function addActiviteHabitat(ActiviteHabitat $activiteHabitat): self
+    {
+        if (!$this->activiteHabitat->contains($activiteHabitat)) {
+            $this->activiteHabitat[] = $activiteHabitat;
+            $activiteHabitat->addHabitat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActiviteHabitat(ActiviteHabitat $activiteHabitat): self
+    {
+        if ($this->activiteHabitat->contains($activiteHabitat)) {
+            $this->activiteHabitat->removeElement($activiteHabitat);
+            $activiteHabitat->removeHabitat($this);
+        }
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): self
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
 }

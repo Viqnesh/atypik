@@ -2,129 +2,77 @@
 
 namespace App\Entity;
 
-use App\Repository\ActiviteHabitatRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ActiviteHabitatRepository::class)
+ * ActiviteHabitat
+ *
+ * @ORM\Table(name="activite_habitat", indexes={@ORM\Index(name="IDX_7191756DD0165F20", columns={"type_activite_id"})})
+ * @ORM\Entity
  */
 class ActiviteHabitat
 {
     /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @var string
+     *
+     * @ORM\Column(name="adresse", type="string", length=30, nullable=false)
      */
     private $adresse;
 
     /**
-     * @ORM\Column(type="float")
+     * @var float
+     *
+     * @ORM\Column(name="distance", type="float", precision=10, scale=0, nullable=false)
      */
     private $distance;
+
     /**
-     * @ORM\Column(type="float")
+     * @var float
+     *
+     * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
      */
     private $prix;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Activite::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @var \Activite
+     *
+     * @ORM\ManyToOne(targetEntity="Activite")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="type_activite_id", referencedColumnName="id")
+     * })
      */
     private $typeActivite;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Habitat::class)
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Habitat", inversedBy="activiteHabitat")
+     * @ORM\JoinTable(name="activite_habitat_habitat",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="activite_habitat_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="habitat_id", referencedColumnName="id")
+     *   }
+     * )
      */
-    private $idHabitat;
-
-    public function __construct()
-    {
-        $this->idHabitat = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getAdresse(): ?string
-    {
-        return $this->adresse;
-    }
-
-    public function setAdresse(string $adresse): self
-    {
-        $this->adresse = $adresse;
-
-        return $this;
-    }
-
-    public function getDistance(): ?float
-    {
-        return $this->distance;
-    }
-
-    public function setDistance(float $distance): self
-    {
-        $this->distance = $distance;
-
-        return $this;
-    }
-
-    public function getPrix(): ?float
-    {
-        return $this->prix;
-    }
-
-    public function setPrix(float $prix): self
-    {
-        $this->prix = $prix;
-
-        return $this;
-    }
-
-    public function getTypeActivite(): ?Activite
-    {
-        return $this->typeActivite;
-    }
-
-    public function setTypeActivite(?Activite $typeActivite): self
-    {
-        $this->typeActivite = $typeActivite;
-
-        return $this;
-    }
+    private $habitat;
 
     /**
-     * @return Collection|Habitat[]
+     * Constructor
      */
-    public function getIdHabitat(): Collection
+    public function __construct()
     {
-        return $this->idHabitat;
+        $this->habitat = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function addIdHabitat(Habitat $idHabitat): self
-    {
-        if (!$this->idHabitat->contains($idHabitat)) {
-            $this->idHabitat[] = $idHabitat;
-        }
-
-        return $this;
-    }
-
-    public function removeIdHabitat(Habitat $idHabitat): self
-    {
-        if ($this->idHabitat->contains($idHabitat)) {
-            $this->idHabitat->removeElement($idHabitat);
-        }
-
-        return $this;
-    }
 }

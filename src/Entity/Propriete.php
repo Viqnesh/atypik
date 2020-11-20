@@ -2,42 +2,55 @@
 
 namespace App\Entity;
 
-use App\Repository\ProprieteRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProprieteRepository::class)
+ * Propriete
+ *
+ * @ORM\Table(name="propriete", indexes={@ORM\Index(name="IDX_73A85B935BA3388B", columns={"id_type_habitat_id"})})
+ * @ORM\Entity
  */
 class Propriete
 {
     /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=40, nullable=false)
      */
     private $nom;
 
     /**
-     * @ORM\ManyToOne(targetEntity=TypeHabitat::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $idTypeHabitat;
-
-    /**
-     * @ORM\Column(type="string", length=30)
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=30, nullable=false)
      */
     private $type;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var bool
+     *
+     * @ORM\Column(name="obligatoire", type="boolean", nullable=false)
      */
     private $obligatoire;
 
+    /**
+     * @var \TypeHabitat
+     *
+     * @ORM\ManyToOne(targetEntity="TypeHabitat")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_type_habitat_id", referencedColumnName="id")
+     * })
+     */
+    private $idTypeHabitat;
 
     public function getId(): ?int
     {
@@ -52,21 +65,6 @@ class Propriete
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getIdTypeHabitat(): ?TypeHabitat
-    {
-        return $this->idTypeHabitat;
-    }
-
-
-
-    
-    public function setIdTypeHabitat($idTypeHabitat): self
-    {
-        $this->idTypeHabitat = $idTypeHabitat;
 
         return $this;
     }
@@ -94,5 +92,18 @@ class Propriete
 
         return $this;
     }
+
+    public function getIdTypeHabitat(): ?TypeHabitat
+    {
+        return $this->idTypeHabitat;
+    }
+
+    public function setIdTypeHabitat(?TypeHabitat $idTypeHabitat): self
+    {
+        $this->idTypeHabitat = $idTypeHabitat;
+
+        return $this;
+    }
+
 
 }

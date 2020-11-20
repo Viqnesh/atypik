@@ -2,35 +2,49 @@
 
 namespace App\Entity;
 
-use App\Repository\CommentaireRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CommentaireRepository::class)
+ * Commentaire
+ *
+ * @ORM\Table(name="commentaire", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_67F068BC79F37AE5", columns={"id_user_id"})}, indexes={@ORM\Index(name="IDX_67F068BCA74ADF1", columns={"id_habitat_id"})})
+ * @ORM\Entity
  */
 class Commentaire
 {
     /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="text")
+     * @var string
+     *
+     * @ORM\Column(name="contenu", type="text", length=0, nullable=false)
      */
     private $contenu;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_user_id", referencedColumnName="id")
+     * })
      */
     private $idUser;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Habitat::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @var \Habitat
+     *
+     * @ORM\ManyToOne(targetEntity="Habitat")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_habitat_id", referencedColumnName="id")
+     * })
      */
     private $idHabitat;
 
@@ -56,7 +70,7 @@ class Commentaire
         return $this->idUser;
     }
 
-    public function setIdUser(User $idUser): self
+    public function setIdUser(?User $idUser): self
     {
         $this->idUser = $idUser;
 
@@ -74,4 +88,6 @@ class Commentaire
 
         return $this;
     }
+
+
 }
